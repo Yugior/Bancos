@@ -1,24 +1,44 @@
 #ifndef CUENTA_H_
 #define CUENTA_H_
 
-#include <string>
 #include <iostream>
+#include <string>
 
 class Cuenta {
 private:
     std::string nombre;
     double dinero;
+
 public:
-    Cuenta(std::string nombre, double dinero);
-    
-    std::string getNombre() const;
-    double getDinero() const;
+    // Constructor de Cuenta
+    Cuenta(std::string nombre, double dinero) : nombre(nombre), dinero(dinero) {}
 
-    bool operator>(const Cuenta& other) const;
-    bool operator<(const Cuenta& other) const;
-    bool nombreMayorQue(const Cuenta& other) const;
+    // Getters
+    std::string getNombre() const { 
+        return nombre; 
+    }
 
-    void imprime() const;
+    double getDinero() const { 
+        return dinero; 
+    }
+
+    // Operadores de comparación
+    bool operator>(const Cuenta& other) const {
+        return dinero > other.dinero;
+    }
+
+    bool operator<(const Cuenta& other) const {
+        return dinero < other.dinero;
+    }
+
+    bool nombreMayorQue(const Cuenta& other) const {
+        return nombre > other.nombre;
+    }
+
+    // Imprimir cuenta
+    void imprime() const {
+        std::cout << nombre << " - $" << dinero << std::endl;
+    }
 };
 
 #endif // CUENTA_H_
