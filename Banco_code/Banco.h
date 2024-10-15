@@ -42,7 +42,7 @@ public:
             return;
         }
         for (const auto& cuenta : cuentas) {
-            archivo << cuenta.getNombre() << " " << cuenta.getDinero() << "\n";
+            archivo << cuenta.getNombre() << " " << cuenta.getSa() << "\n";
         }
         archivo.close();
     }

@@ -1,91 +1,70 @@
-#include "Banco.h"
+#include <iostream>
+#include <cstdlib>
 #include "Listas.h"
 
-#include <iostream>
-#include <string>
+void limpiarTerminal() {
+    system("clear || cls"); // Limpiar la consola (dependiendo del sistema operativo)
+}
+
+void mostrarMenu() {
+    std::cout << "Menu:" << std::endl;
+    std::cout << "1. Agregar cuenta" << std::endl;
+    std::cout << "2. Mostrar cuentas" << std::endl;
+    std::cout << "3. Guardar cuentas en archivo" << std::endl;
+    std::cout << "4. Ordenar cuentas por nombre" << std::endl;
+    std::cout << "5. Ordenar cuentas por dinero" << std::endl;
+    std::cout << "6. Salir" << std::endl;
+}
 
 int main() {
-    Banco banco;
-    Listas lista;
-    int opcion;
-    const std::string archivoCuentas = "cuentas.txt";
+    ListaDobleLigada lista;
+    lista.cargarCuentasDesdeArchivo(); // Cargar las cuentas desde el archivo al inicio
 
-    // Cargar cuentas desde el archivo al iniciar
-    banco.cargarCuentas(archivoCuentas);
+    int opcion;
+    std::string nombre;
+    double dinero;
 
     do {
-        std::cout << "----- Banco -----\n";
-        std::cout << "1. Crear cuenta\n";
-        std::cout << "2. Listar cuentas\n";
-        std::cout << "3. Ordenar cuentas por dinero ascendente\n";
-        std::cout << "4. Ordenar cuentas por dinero descendente\n";
-        std::cout << "5. Ordenar cuentas por nombre\n";
-        std::cout << "6. Guardar cuentas\n";
-        std::cout << "7. Cargar cuentas\n";
-        std::cout << "8. Salir\n";
-        std::cout << "Seleccione una opción: ";
+        mostrarMenu();
+        std::cout << "Elige una opción: ";
         std::cin >> opcion;
+        limpiarTerminal(); // Limpiar la terminal después de cada opción
 
         switch (opcion) {
-            case 1: {
-                std::string nombre;
-                double dinero;
-                std::cout << "Ingrese el nombre del titular: ";
+            case 1:
+                std::cout << "Ingrese el nombre de la cuenta: ";
                 std::cin >> nombre;
                 std::cout << "Ingrese la cantidad de dinero: ";
                 std::cin >> dinero;
-                banco.agregarCuenta(nombre, dinero);
-                std::cout << "Cuenta creada exitosamente.\n";
+                lista.insertar(Cuenta(nombre, dinero));
                 break;
-            }
-            case 2: {
-                banco.listarCuentas();
+            case 2:
+                std::cout << "Cuentas:" << std::endl;
+                lista.mostrarLista();
                 break;
-            }
-            case 3: {
-                std::vector<Cuenta> cuentasOrdenadas = lista.bubbleSortPorDineroAsc(banco.getCuentas());
-                banco.setCuentas(cuentasOrdenadas);
-                std::cout << "Cuentas ordenadas por dinero ascendente:\n";
-                banco.listarCuentas();
+            case 3:
+                lista.guardarCuentasEnArchivo();
+                std::cout << "Cuentas guardadas en archivo." << std::endl;
                 break;
-            }
-            case 4: {
-                std::vector<Cuenta> cuentasOrdenadas = lista.bubbleSortPorDineroDesc(banco.getCuentas());
-                banco.setCuentas(cuentasOrdenadas);
-                std::cout << "Cuentas ordenadas por dinero descendente:\n";
-                banco.listarCuentas();
+            case 4:
+                lista.ordenarPorNombre();
+                std::cout << "Cuentas ordenadas por nombre:" << std::endl;
+                lista.mostrarLista(); // Mostrar la lista después de ordenar
                 break;
-            }
-            case 5: {
-                std::vector<Cuenta> cuentasOrdenadas = lista.bubbleSortPorNombre(banco.getCuentas());
-                banco.setCuentas(cuentasOrdenadas);
-                std::cout << "Cuentas ordenadas por nombre:\n";
-                banco.listarCuentas();
+            case 5:
+                lista.ordenarPorDinero();
+                std::cout << "Cuentas ordenadas por dinero:" << std::endl;
+                lista.mostrarLista(); // Mostrar la lista después de ordenar
                 break;
-            }
-            case 6: {
-                banco.guardarCuentas(archivoCuentas);
-                std::cout << "Cuentas guardadas exitosamente.\n";
+            case 6:
+                std::cout << "Saliendo..." << std::endl;
                 break;
-            }
-            case 7: {
-                banco.cargarCuentas(archivoCuentas);
-                std::cout << "Cuentas cargadas exitosamente.\n";
+            default:
+                std::cout << "Opción no válida, intenta nuevamente." << std::endl;
                 break;
-            }
-            case 8: {
-                std::cout << "Saliendo del programa...\n";
-                break;
-            }
-            default: {
-                std::cout << "Opción no válida.\n";
-                break;
-            }
         }
-    } while (opcion != 8);
-
-    // Guardar cuentas antes de salir
-    banco.guardarCuentas(archivoCuentas);
+        std::cout << std::endl;
+    } while (opcion != 6);
 
     return 0;
 }

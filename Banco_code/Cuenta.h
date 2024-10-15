@@ -18,7 +18,7 @@ public:
         return nombre; 
     }
 
-    double getDinero() const { 
+    double getSa() const { 
         return dinero; 
     }
 
