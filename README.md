@@ -5,17 +5,22 @@ Este proyecto tiene como finalidad desarrollar un sistema de gestión de cuentas
 ## Código
 El código está diseñado con varias funciones clave:
 
+### Complejidad del sistema.
+
 
 #### Registro de cuentas: 
 - Permite al usuario registrar nuevas cuentas bancarias. 
 - Los datos ingresados se almacenan en el archivo de texto cuentas.txt, lo que permite que las cuentas nuevas se guarden permanentemente.
   
 #### Ordenación: 
-- Se implementan algoritmos de burbuja para ordenar las cuentas.
+El codigo implementa bublesorts dentro del archivo Listas.h, en las funciones ordenarPorNombre y ordenarPorDinero de la clase ListaDobleLigada.
+
+- Se implementan algoritmos de  para ordenar las cuentas.
 - La ordenación puede realizarse de dos maneras:
 - Por nombre: Ordena las cuentas alfabéticamente de acuerdo con el nombre del titular.
 - Por saldo: Ordena las cuentas de forma ascendente o descendente según el saldo.
 - Aunque bubble sort tiene una complejidad de O(n²), es adecuado para este sistema por su simplicidad, dado que la cantidad de cuentas en este contexto es limitada.
+-
   
 #### Persistencia de datos:
 Los datos de las cuentas se almacenan en un archivo de texto (cuentas.txt), que guarda permanentemente todas las cuentas registradas, incluso tras cerrar el programa. Así, en futuras ejecuciones, se pueden recuperar y seguir gestionando.
