@@ -5,8 +5,21 @@ Este proyecto tiene como finalidad desarrollar un sistema de gestión de cuentas
 ## Código
 El código está diseñado con varias funciones clave:
 
-### Complejidad del sistema.
+### Complejidad del sistema
 
+Considerando los archivos que se tiene en la implementación del proyecto, la complejidad final del programa es O(n^2) debido a la implementación de bublesort como metodo de ordenamiento. Como se podra ver en los siguientes puntos, se analiza de manera individual cada archivo para llegar a esta conclusión.
+
+#### Main.cpp
+El archivo main.cpp contiene el flujo principal de control y usa una instancia de ListaDobleLigada para manejar las cuentas. La complejidad depende de las operaciones en la clase ListaDobleLigada y la frecuencia de las opciones seleccionadas en el menú.Si bien la mayoria de las funciones varian en el main entre O(1) a O(n), en dependencia de el metodo de ordenamiento, el peor caso de ejecución es O(n^2).
+
+#### Listas.h
+En el archivo Listas.h se encuentran 3 clases diferentes, Nodos, Cuentas y ListasDobleLigada. Las clases de Nodos y cuentas tienen un promedio de O(1), sin embargo; el tener la clase ListasDobleLigadas (encargada de tener las funciones de ordenamiento), ocasiona que el archivo llegue a O(n^2) en el peor caso.
+
+#### Cuenta.h
+Este archivo posee funciones similares a las encontradas en Listas; por lo tanto su complejidad es O(1).
+
+#### Banco.h
+Las funciones que administra como guradarCuentas (que recorre todo el arreglo de cuentas) son en su mayoria O(n), en casos diferentes se tiene la funcion getCuentas() e insertCuenta(); cuya complejidad es O(1)
 
 #### Registro de cuentas: 
 - Permite al usuario registrar nuevas cuentas bancarias. 
@@ -14,13 +27,14 @@ El código está diseñado con varias funciones clave:
   
 #### Ordenación: 
 El codigo implementa bublesorts dentro del archivo Listas.h, en las funciones ordenarPorNombre y ordenarPorDinero de la clase ListaDobleLigada.
+Este sistema es un algoritmo de comparación que intercambia elementos adyacentes para llevar valores más grandes hacia el final (o los valores más pequeños al principio) de la lista en cada pasada.
+La complejidad depende de como esta organizada la lista previamente. En el peor caso corresponde a O(n^2) debido a que cada elemento puede necesitar compararse con casi todos los demás. En el mejor caso se da O(n), en caso de que la lista ya este previamente ordenada. Este metodo cumple las siguientes caractieristicas en el programa:
 
-- Se implementan algoritmos de  para ordenar las cuentas.
-- La ordenación puede realizarse de dos maneras:
+- Dos metodos de ordenación :
 - Por nombre: Ordena las cuentas alfabéticamente de acuerdo con el nombre del titular.
 - Por saldo: Ordena las cuentas de forma ascendente o descendente según el saldo.
-- Aunque bubble sort tiene una complejidad de O(n²), es adecuado para este sistema por su simplicidad, dado que la cantidad de cuentas en este contexto es limitada.
--
+Aunque bubble sort tiene una complejidad de O(n²), es adecuado para este sistema por su simplicidad, dado que la cantidad de cuentas en este contexto es limitada. En caso contrario o de implementarse una cantidad mas amplia de datos, seria ineficiente debido a su escalabilidad.
+
   
 #### Persistencia de datos:
 Los datos de las cuentas se almacenan en un archivo de texto (cuentas.txt), que guarda permanentemente todas las cuentas registradas, incluso tras cerrar el programa. Así, en futuras ejecuciones, se pueden recuperar y seguir gestionando.
@@ -79,6 +93,10 @@ En caso de errores en el ingreso de datos, es aconsejable reiniciar el programa 
 ### Excepciones y recomendaciones adicionales
 .Se recomienda no modificar manualmente el archivo cuentas.txt sin seguir el formato correcto para evitar errores.
 .En caso de error en el ingreso de datos, se puede reiniciar el programa para corregir el flujo de ejecución.
+
+### Solución de errores y correcciones
+El primer error que el sistema arrojo se dio al no reconocer ni encontrar las funciones que conforman el codigo al importarlas al main.cpp
+En su anterioridad, el codigo dividida los archivos en .h y .cpp para una mejor lectura de este; sin embargo el error permaencia tras intentos de corregirlo y se opto por usar únicamente archivos .h, sacrificando lejibilidad y formato del programa a cambio de la compliación correcta del mismo proyecto.
 
   
  
